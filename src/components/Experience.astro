@@ -1,5 +1,6 @@
 ---
 import '@/styles/experience.css'
+import Heading from '@Components/ui/Heading.astro'
 
 const workHistory = [
   {
@@ -40,21 +41,10 @@ const workHistory = [
 
 <section class="w-full pb-16" id="experience">
   <div class="px-4 md:px-6">
-    <div class="w-full max-w-5xl mx-auto px-4 py-12 md:py-16">
-      <div class="space-y-4">
-        <p class="text-indigo-600 font-medium">Resumen de la experiencia</p>
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
-          Experiencia profesional
-        </h2>
-        <p class="text-muted-foreground text-lg md:text-xl max-w-2xl">
-          Experiencia en el diseño, desarrollo e implementación de aplicaciones
-          y soluciones digitales para organizaciones privadas. He trabajado en
-          entornos que utilizan tecnologías como C#, .NET, Angular y MSSQL,
-          aplicando patrones de diseño como MVC y Arquitectura en Capas para
-          crear software escalable y mantenible.
-        </p>
-      </div>
-    </div>
+    <Heading 
+    title="Experiencia profesional" 
+    subtitle="Resumen de la experiencia" 
+    description="Experiencia en el diseño, desarrollo e implementación de aplicaciones y soluciones digitales para organizaciones privadas. He trabajado en entornos que utilizan tecnologías como C#, .NET, Angular y MSSQL, aplicando patrones de diseño como MVC y Arquitectura en Capas para crear software escalable y mantenible."/>
 
     {/* Work History */}
     <div class="w-full">
@@ -67,11 +57,6 @@ const workHistory = [
                   <h2 class="text-2xl font-bold ">{job.title}</h2>
                   <div class="flex flex-col items-start justify-between w-full md:flex-row md:items-center">
                     <div class="flex items-center md:space-x-2">
-                      {/* <img
-                        src="https://source.unsplash.com/75x75/?portrait"
-                        alt="as"
-                        class="w-4 h-4 border rounded-full dark:bg-gray-500 dark:border-gray-300"
-                      /> */}
                       <p class="text-sm text-indigo-600 font-medium">
                         {job.company} |
                         {job.period.endsWith("Actual") ? (

@@ -1,5 +1,6 @@
 ---
 import ProjectCard from "./ProjectCard.astro";
+import Heading from "./ui/Heading.astro";
 
 interface Project {
   title: string;
@@ -47,6 +48,8 @@ const projects = [
   },
 ];
 ---
+
+<Heading title="Proyectos" subtitle="" description="" />
 
 {
   projects.map((project) => {
