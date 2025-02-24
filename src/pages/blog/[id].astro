@@ -31,7 +31,7 @@ const {
 const { Content } = await render(post);
 ---
 
-<BlogLayout title="" description="">
+<BlogLayout title=`Raul Salomon - ${title}` description={title}>
   <div class="container mx-auto px-4 py-8">
     <div class="flex flex-col md:flex-row">
       <article class="md:w-2/3 md:pr-8">
