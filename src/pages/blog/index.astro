@@ -1,6 +1,9 @@
 ---
+import Badge from "@/components/ui/Badge.astro";
 import BlogLayout from "@/layouts/BlogLayout.astro";
 import { getCollection } from "astro:content";
+
+const lstPosts = await getCollection("posts");
 
 const featuredPosts = await getCollection("posts", ({ data }) => {
   return data.featured === true;
@@ -10,20 +13,18 @@ const posts = await getCollection("posts", ({ data }) => {
   return data.featured !== true;
 });
 
-const categories = [
-  "React",
-  "JavaScript",
-  "Python",
-  "CSS",
-  "GraphQL",
-  "Backend",
-];
+const categories = [...new Set(lstPosts.flatMap((post) => post.data.tags))];
 
-const recentPosts = [
-  { id: 1, title: "Understanding React Hooks" },
-  { id: 2, title: "Advanced TypeScript Techniques" },
-  { id: 3, title: "Optimizing Database Queries" },
-];
+// Ordenar los posts por fecha (pub_date) de más reciente a más antiguo
+const sortedPosts = lstPosts.sort(
+  (a, b) =>
+    // 'Date' no se puede restar directamente sin acceder a sus valores de tiempo en milisegundos.
+    // Para solucionar esto, se convierte las fechas a milisegundos utilizando .getTime(),
+    // lo que devolverá un número con el que se puede realizar la operación de resta correctamente.
+    new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+);
+
+const recentPosts = sortedPosts.slice(0, 3);
 ---
 
 <BlogLayout
@@ -63,7 +64,7 @@ const recentPosts = [
                     <p class="text-gray-600 mb-4">{description}</p>
                     <a
                       href={`/blog/${id}`}
-                      class="text-blue-600 font-semibold hover:underline"
+                      class="text-indigo-600 font-semibold hover:underline"
                     >
                       Read More
                     </a>
@@ -92,14 +93,16 @@ const recentPosts = [
                   class="w-full h-48 object-cover"
                 />
                 <div class="p-6">
-                  <span class="text-blue-600 text-sm font-semibold">
-                    {tags}
-                  </span>
+                  <div class="flex flex-wrap gap-2">
+                    {tags?.map((tag) => {
+                      return <Badge text={tag} />;
+                    })}
+                  </div>
                   <h2 class="text-xl font-bold mt-2 mb-2">{title}</h2>
                   <p class="text-gray-600 mb-4">{description}</p>
                   <a
                     href={`/blog/${id}`}
-                    class="text-blue-600 font-semibold hover:underline"
+                    class="text-indigo-600 font-semibold hover:underline"
                   >
                     Read More
                   </a>
@@ -119,8 +122,8 @@ const recentPosts = [
             categories.map((category) => (
               <li class="mb-2">
                 <a
-                  href={`/category/${category.toLowerCase()}`}
-                  class="text-blue-600 hover:underline"
+                  href={`/blog/${category}`}
+                  class="text-indigo-600 hover:underline"
                 >
                   {category}
                 </a>
@@ -136,31 +139,15 @@ const recentPosts = [
             recentPosts.map((post) => (
               <li class="mb-2">
                 <a
-                  href={`/post/${post.id}`}
-                  class="text-gray-700 hover:text-blue-600 transition-colors"
+                  href={`/blog/${post.id}`}
+                  class="text-gray-700 hover:text-indigo-600 transition-colors"
                 >
-                  {post.title}
+                  {post.data.title}
                 </a>
               </li>
             ))
           }
         </ul>
-      </div>
-      <div>
-        <h3 class="text-xl font-bold mb-4">Subscribe</h3>
-        <form class="flex flex-col">
-          <input
-            type="email"
-            placeholder="Your email"
-            class="px-4 py-2 mb-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
-          />
-          <button
-            type="submit"
-            class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
-          >
-            Subscribe
-          </button>
-        </form>
       </div>
     </aside>
   </div>

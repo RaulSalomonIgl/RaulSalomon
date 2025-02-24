@@ -1,0 +1,6 @@
+{
+    "conventionalCommits.scopes": [
+        "collections",
+        "blog"
+    ]
+}
