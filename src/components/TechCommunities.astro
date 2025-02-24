@@ -1,36 +1,7 @@
 ---
-const techCommunities = [
-  {
-    logo: "images/cetif.webp",
-    name: "Comunidad Estudiantil de Tecnologías de Información de FACPyA",
-    description:
-      "A través de actividades, talleres y eventos colaborativos, buscamos fomentar el intercambio de conocimientos en áreas clave como la programación, el análisis de datos, la ciberseguridad y el desarrollo de software.",
-  },
-  {
-    logo: "images/innovaccion-virtual.webp",
-    name: "Innovaccion Virtual",
-    description:
-      "Innovacción Virtual, un programa educativo de Microsoft formado por diversas experiencias como eventos en vivo sobre temáticas específicas y resolución de dudas conceptuales, sesiones en directo con especialistas en la industria, Máster Classes con especialistas de alto nivel de Microsoft, y Hackathones para el prototipo de soluciones en la nube a problemáticas actuales, todo esto con base en temáticas como: Internet de las Cosas, Inteligencia Artificial, Nube, Analítica de datos, Desarrollo de Bots y herramientas de comunicación digitales.",
-  },
-  {
-    logo: "images/launch-x.webp",
-    name: "Launch X",
-    description:
-      "Launch X LATAM tiene una duración de tres meses, durante los cuales los estudiantes tomarán parte de sesiones de formación y conversaciones con expertos de tecnología. Con apoyo del conocimiento de expertos de Innovacción Virtual, los participantes podrán desarrollar habilidades de FrontEnd y BackEnd con Javascript. con sesiones de formación, entrenamiento y aprendizaje para desarrolladores.",
-  },
-  {
-    logo: "images/tigre-hacks.webp",
-    name: "Major League Hacking - Tigre Hacks",
-    description:
-      "Tigre Hacks es el primer Hackathon de 48 horas de la UANL creado por estudiantes para estudiantes. Reunimos a estudiantes de diferentes carreras para crear hacks en 24 horas sobre los problemas que enfrentamos en la vida real como comunidad. ",
-  },
-  {
-    logo: "images/la-hackathon-del-dev.webp",
-    name: "La Hackathon Del Dev",
-    description:
-      "En este hackathon, la elección del proyecto es completamente libre. Puedes desarrollar cualquier tipo de aplicación web que te apasione o que consideres interesante. ¡La creatividad es tu única limitación! Desde juegos interactivos hasta herramientas útiles para la comunidad, todo es válido.",
-  },
-];
+import { getCollection } from "astro:content";
+
+const techCommunities = await getCollection("techComunities");
 ---
 
 <section class="py-16 bg-white">
@@ -42,17 +13,15 @@ const techCommunities = [
     <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
       {
         techCommunities.map((community) => {
+          const { id, data } = community;
+          const { logo, name, description } = data;
           return (
             <div class="flex flex-col items-center text-center">
               <div class="w-16 h-16 mb-6 flex items-center justify-center">
-                <img
-                  src={community.logo}
-                  class="size-16"
-                  alt={community.name}
-                />
+                <img src={logo} class="size-16" alt={name} />
               </div>
-              <h3 class="text-lg font-semibold mb-3">{community.name}</h3>
-              <p class="text-gray-600 max-w-xs">{community.description}</p>
+              <h3 class="text-lg font-semibold mb-3">{name}</h3>
+              <p class="text-gray-600 max-w-xs">{description}</p>
             </div>
           );
         })

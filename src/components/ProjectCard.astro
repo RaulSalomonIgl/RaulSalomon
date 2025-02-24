@@ -2,20 +2,9 @@
 import Badge from "@Components/ui/Badge.astro";
 import Icon from "@Components/ui/Icon.astro";
 
-interface Project {
-  title: string;
-  cover: string;
-  description: string;
-  pages: {
-    demo: string;
-    repo: string;
-  };
-  tags: string[];
-  lang: string;
-}
+const { project } = Astro.props;
 
-const { title, cover, description, pages, tags, lang }: Project =
-  Astro.props as Project;
+const { title, cover, description, pages, tags, lang } = project;
 ---
 
 <div class="mx-auto max-w-7xl py-24 sm:px-6 lg:px-8" id="projects">
@@ -54,7 +43,7 @@ const { title, cover, description, pages, tags, lang }: Project =
 
       <div class="flex flex-wrap gap-2 py-5">
         {
-          tags.map((tag) => {
+          tags.map((tag: string) => {
             return <Badge text={tag} withIcon={true} />;
           })
         }
