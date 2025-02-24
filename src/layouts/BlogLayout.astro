@@ -1,0 +1,48 @@
+---
+import Footer from "@/components/Footer.astro";
+import Layout from "./Layout.astro";
+import Header from "@Components/react-components/Header";
+
+interface Props {
+  title: string;
+  description: string;
+  page?: "blog";
+  fullScreen?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <nav class="bg-white border-gray-200">
+    <div
+      class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
+    >
+      <a href="blog" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <img
+          src="/images/raul-salomon.webp"
+          class="h-8"
+          alt="RaulSalomon Logo"
+        />
+        >
+      </a>
+
+      <div class="block w-auto" id="navbar-default">
+        <ul
+          class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white"
+        >
+          <li>
+            <a
+              href="/"
+              class="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
+              aria-current="page">RaulSalomon</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <slot />
+  <Footer />
+</Layout>

@@ -1,0 +1,35 @@
+[
+    {
+      "title": "Full Stack Developer",
+      "company": "Facultad de Contaduría Pública y Administración",
+      "period": "2023 - Actual",
+      "responsibilities": [
+        "Desarrollo de aplicaciones.",
+        "Mantenimiento a sistemas desarrollados.",
+        "Soporte técnico de sistemas.",
+        "Administración de Base de Datos."
+      ],
+      "tools": ["JavaScript","C#","MSSQL",".NET", "Git"]
+    },
+    {
+      "title": "Full Stack Developer",
+      "company": "Freelancer",
+      "period": "2020 - 2023",
+      "responsibilities": [
+        "Encargado de la coordinación de equipos de desarrollo",
+        "Diseñador y desarrollador de interfaces de usuario web adaptables",
+        "Participación en el desarrollo de aplicaciones adaptadas a ECommerce"
+      ],
+      "tools": ["C#","MSSQL",".NET","Git", "Figma"]
+    },
+    {
+      "title": "Junior Web Developer",
+      "company": "AppCenter",
+      "period": "2019 - 2021",
+      "responsibilities": [
+        "Desarrollo de aplicaciones",
+        "Encargado de la coordinación de equipos de desarrollo"
+      ],
+      "tools": ["C#",".NET","Git"]
+    }
+  ]

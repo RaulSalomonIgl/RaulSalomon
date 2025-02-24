@@ -1,0 +1,31 @@
+---
+// Import all your SVG icons
+import GitHub from "@Components/icons/github.astro";
+import Instagram from "@Components/icons/Instagram.astro";
+import LinkedIn from "@Components/icons/LinkedIn.astro";
+import Rocket from "@Components/icons/Rocket.astro";
+import X from "@Components/icons/X.astro";
+
+// Define a mapping of icon names to their corresponding SVGs
+const iconMap = {
+  github: GitHub,
+  instagram: Instagram,
+  linkedin: LinkedIn,
+  rocket: Rocket,
+  x: X,
+};
+
+// Define the IconProps interface
+interface IconProps {
+  name: keyof typeof iconMap;
+  className?: string;
+}
+
+// Destructure props with TypeScript validation
+const { name, className }: IconProps = Astro.props as IconProps;
+
+// Get the icon from the map
+const IconComponent = iconMap[name];
+---
+
+{IconComponent && <IconComponent class={className} />}

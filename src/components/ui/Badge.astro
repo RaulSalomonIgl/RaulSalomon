@@ -1,0 +1,21 @@
+---
+const { text, withIcon } = Astro.props;
+---
+
+<div
+  class="flex text-xs font-medium rounded-full gap-1.5 px-3 py-1 bg-indigo-500 text-white"
+>
+  {
+    withIcon && (
+      <img
+        src={`/svg/${text}.svg`}
+        alt={text}
+        class="size-4 w-auto object-contain transition-transform group-hover:scale-110"
+        loading="lazy"
+      />
+    )
+  }
+  <span class="text-[var(--white-icon)]">
+    {text.charAt(0).toUpperCase() + text.slice(1)}
+  </span>
+</div>

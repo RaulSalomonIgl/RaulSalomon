@@ -1,0 +1,164 @@
+---
+import BlogLayout from "@/layouts/BlogLayout.astro";
+import { getCollection } from "astro:content";
+
+const featuredPosts = await getCollection("posts", ({ data }) => {
+  return data.featured === true;
+});
+
+const posts = await getCollection("posts", ({ data }) => {
+  return data.featured !== true;
+});
+
+const categories = [
+  "React",
+  "JavaScript",
+  "Python",
+  "CSS",
+  "GraphQL",
+  "Backend",
+];
+
+const recentPosts = [
+  { id: 1, title: "Understanding React Hooks" },
+  { id: 2, title: "Advanced TypeScript Techniques" },
+  { id: 3, title: "Optimizing Database Queries" },
+];
+---
+
+<BlogLayout title="" description="">
+  <div
+    class="container mx-auto px-4 py-8 flex flex-col md:flex-row-reverse gap-4"
+  >
+    <div class="w-full md:pr-8">
+      <div class="mb-12">
+        <div
+          class:list={featuredPosts.length < 2
+            ? "grid-cols-1"
+            : "grid-cols-1 md:grid-cols-2"}
+          class="grid gap-8"
+        >
+          {
+            featuredPosts.map((post) => {
+              const { id, data } = post;
+              const { title, description, image, pubDate, tags } = data;
+              return (
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105">
+                  <img
+                    src={
+                      image ||
+                      "https://th.bing.com/th/id/OIP.ph40w_6JRRVryIOh-1wHiwHaHa?rs=1&pid=ImgDetMain"
+                    }
+                    alt={title}
+                    transition:name={`img-${id}`}
+                    width={600}
+                    height={300}
+                    class="w-full h-48 object-cover"
+                  />
+                  <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">{title}</h3>
+                    <p class="text-gray-600 mb-4">{description}</p>
+                    <a
+                      href={`/blog/${id}`}
+                      class="text-blue-600 font-semibold hover:underline"
+                    >
+                      Read More
+                    </a>
+                  </div>
+                </div>
+              );
+            })
+          }
+        </div>
+      </div>
+      <!-- BlogGrid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+        {
+          posts.map((post) => {
+            const { id, data } = post;
+            const { title, description, image, pubDate, tags } = data;
+
+            return (
+              <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105">
+                <img
+                  src={image || "images/placeholder.webp"}
+                  alt={title}
+                  transition:name={`img-${id}`}
+                  width={400}
+                  height={200}
+                  class="w-full h-48 object-cover"
+                />
+                <div class="p-6">
+                  <span class="text-blue-600 text-sm font-semibold">
+                    {tags}
+                  </span>
+                  <h2 class="text-xl font-bold mt-2 mb-2">{title}</h2>
+                  <p class="text-gray-600 mb-4">{description}</p>
+                  <a
+                    href={`/blog/${id}`}
+                    class="text-blue-600 font-semibold hover:underline"
+                  >
+                    Read More
+                  </a>
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+    <!-- Sidebar -->
+    <aside class={`md:w-1/4 mt-8 md:mt-0 rounded-lg shadow-md p-6`}>
+      <div class="mb-8">
+        <h3 class="text-xl font-bold mb-4">Categories</h3>
+        <ul>
+          {
+            categories.map((category) => (
+              <li class="mb-2">
+                <a
+                  href={`/category/${category.toLowerCase()}`}
+                  class="text-blue-600 hover:underline"
+                >
+                  {category}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="mb-8">
+        <h3 class="text-xl font-bold mb-4">Recent Posts</h3>
+        <ul>
+          {
+            recentPosts.map((post) => (
+              <li class="mb-2">
+                <a
+                  href={`/post/${post.id}`}
+                  class="text-gray-700 hover:text-blue-600 transition-colors"
+                >
+                  {post.title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-xl font-bold mb-4">Subscribe</h3>
+        <form class="flex flex-col">
+          <input
+            type="email"
+            placeholder="Your email"
+            class="px-4 py-2 mb-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+          />
+          <button
+            type="submit"
+            class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+          >
+            Subscribe
+          </button>
+        </form>
+      </div>
+    </aside>
+  </div>
+</BlogLayout>

@@ -1,0 +1,66 @@
+---
+import ProjectCard from "./ProjectCard.astro";
+
+interface Project {
+  title: string;
+  cover: string;
+  description: string;
+  pages: {
+    demo: string;
+    repo: string;
+  };
+  tags: string[];
+  lang: string;
+}
+
+const projects = [
+  {
+    title: "Clon de la aplicación web de Horizon Supply Co.",
+    cover: "images/projects/horizon-supply-co.webp",
+    description:
+      "Este proyecto es una aplicación web clonada del sitio web oficial de Horizon Supply Co. (https://www.horizonsupply.co/).",
+    pages: {
+      demo: "https://horizonsupply-clone.vercel.app/",
+      repo: "https://github.com/RaulSalomonIgl/HorizonsupplyClone",
+    },
+    tags: [
+      "angular",
+      "tailwindcss",
+      "typeScript",
+      "angular",
+      "tailwindcss",
+      "typeScript",
+    ],
+    lang: "es",
+  },
+  {
+    title: "Resiliencia Teatro - Proyecto Web para Compañía Teatral",
+    cover: "images/projects/resiencia-teatro.webp",
+    description:
+      "Este proyecto web fue desarrollado para Resiliencia Teatro, una compañía teatral que busca conectar con su audiencia a través de la expresión emocional y la reflexión en sus obras.",
+    pages: {
+      demo: "https://resiliencia-teatro.vercel.app/",
+      repo: "https://github.com/RaulSalomonIgl/ResilienciaTeatro",
+    },
+    tags: ["astro", "tailwindcss", "react"],
+    lang: "es",
+  },
+];
+---
+
+{
+  projects.map((project) => {
+    // const { slug, data } = project;
+    // const { title, cover, description, pages, tags } = data;
+    return (
+      <ProjectCard
+        title={project.title}
+        cover={project.cover}
+        description={project.description}
+        pages={project.pages}
+        tags={project.tags}
+        lang={project.lang}
+      />
+    );
+  })
+}

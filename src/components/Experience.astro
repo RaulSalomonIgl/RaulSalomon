@@ -1,0 +1,118 @@
+---
+import '@/styles/experience.css'
+
+const workHistory = [
+  {
+    title: "Full Stack Developer",
+    company: "Facultad de Contaduría Pública y Administración",
+    period: "2023 - Actual",
+    responsibilities: [
+      "Desarrollo de aplicaciones.",
+      "Mantenimiento a sistemas desarrollados.",
+      "Soporte técnico de sistemas.",
+      "Administración de Base de Datos.",
+    ],
+    tools: ["JavaScript","C#","MSSQL",".NET", "Git",]
+  },
+  {
+    title: "Full Stack Developer",
+    company: "Freelancer",
+    period: "2020 - 2023",
+    responsibilities: [
+      "Encargado de la coordinación de equipos de desarrollo",
+      "Diseñador y desarrollador de interfaces de usuario web adaptables",
+      "Participación en el desarrollo de aplicaciones adaptadas a ECommerce",
+    ],
+    tools: ["C#","MSSQL",".NET","Git", "Figma"]
+  },
+  {
+    title: "Junior Web Developer",
+    company: "AppCenter",
+    period: "2019 - 2021",
+    responsibilities: [
+      "Desarrollo de aplicaciones",
+      "Encargado de la coordinación de equipos de desarrollo",
+    ],
+    tools: ["C#",".NET","Git"]
+  },
+];
+---
+
+<section class="w-full pb-16" id="experience">
+  <div class="px-4 md:px-6">
+    <div class="w-full max-w-5xl mx-auto px-4 py-12 md:py-16">
+      <div class="space-y-4">
+        <p class="text-indigo-600 font-medium">Resumen de la experiencia</p>
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+          Experiencia profesional
+        </h2>
+        <p class="text-muted-foreground text-lg md:text-xl max-w-2xl">
+          Experiencia en el diseño, desarrollo e implementación de aplicaciones
+          y soluciones digitales para organizaciones privadas. He trabajado en
+          entornos que utilizan tecnologías como C#, .NET, Angular y MSSQL,
+          aplicando patrones de diseño como MVC y Arquitectura en Capas para
+          crear software escalable y mantenible.
+        </p>
+      </div>
+    </div>
+
+    {/* Work History */}
+    <div class="w-full">
+      <div class="space-y-6">
+        {
+          workHistory.map((job, index) => (
+            <div class="w-full px-6 py-8 mx-auto space-y-6 border border-neutral-300 rounded-md" id="bg-pattern">
+              <div class="text-neutral-900">
+                <div class="space-y-2">
+                  <h2 class="text-2xl font-bold ">{job.title}</h2>
+                  <div class="flex flex-col items-start justify-between w-full md:flex-row md:items-center">
+                    <div class="flex items-center md:space-x-2">
+                      {/* <img
+                        src="https://source.unsplash.com/75x75/?portrait"
+                        alt="as"
+                        class="w-4 h-4 border rounded-full dark:bg-gray-500 dark:border-gray-300"
+                      /> */}
+                      <p class="text-sm text-indigo-600 font-medium">
+                        {job.company} |
+                        {job.period.endsWith("Actual") ? (
+                          <span>{job.period.slice(0, 6)}</span>
+                          <span class="bg-indigo-600 text-white text-base/2 font-medium me-2 px-2.5 py-0.5 rounded-sm items-center">
+                            {job.period.slice(6)}
+                          </span>
+                        ) : <span>{job.period}</span> }
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="flex flex-wrap gap-2 py-5">
+                    {job.tools.map((tool) => {
+                  return <span
+                    class="px-3 py-1 rounded-lg text-xs bg-indigo-600 text-white"
+                  >
+                    {tool}
+                  </span>
+
+                    })}
+
+                </div>
+                <div class="space-y-2">
+                  <h2 class="mb-2 text-md font-semibold text-gray-900">
+                    Actividades desempeñadas:
+                  </h2>
+                  <ul class="max-w-lg space-y-1 text-sm text-neutral-600 list-disc list-inside">
+                    {job.responsibilities.map((responsibility) => {
+                      return <li>{responsibility}</li>;
+                    })}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
