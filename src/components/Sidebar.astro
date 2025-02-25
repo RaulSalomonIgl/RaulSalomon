@@ -1,0 +1,57 @@
+---
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("posts");
+
+const categories = [...new Set(posts.flatMap((post) => post.data.tags))];
+
+// Ordenar los posts por fecha (pub_date) de más reciente a más antiguo
+const sortedPosts = posts.sort(
+  (a, b) =>
+    // 'Date' no se puede restar directamente sin acceder a sus valores de tiempo en milisegundos.
+    // Para solucionar esto, se convierte las fechas a milisegundos utilizando .getTime(),
+    // lo que devolverá un número con el que se puede realizar la operación de resta correctamente.
+    new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+);
+
+const recentPosts = sortedPosts.slice(0, 3);
+
+const { className } = Astro.props;
+---
+
+<aside class={`${className} rounded-lg shadow-md p-4`}>
+  <div class="mb-8">
+    <h3 class="text-xl font-bold mb-4">Categorías</h3>
+    <ul>
+      {
+        categories.sort().map((category) => (
+          <li class="mb-2">
+            <a
+              href={`/blog/${category}`}
+              class="text-indigo-600 hover:underline"
+            >
+              {category}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <div class="mb-8">
+    <h3 class="text-xl font-bold mb-4">Últimas publicaciones</h3>
+    <ul>
+      {
+        recentPosts.map((post) => (
+          <li class="mb-2">
+            <a
+              href={`/blog/${post.id}`}
+              class="text-gray-700 hover:text-indigo-600 transition-colors"
+            >
+              {post.data.title}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</aside>

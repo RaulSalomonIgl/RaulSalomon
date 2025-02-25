@@ -1,0 +1,12 @@
+h1,
+h2,
+h3 {
+  color: #615fff;
+}
+
+@media (width < 40rem /* 640px */) {
+  li {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

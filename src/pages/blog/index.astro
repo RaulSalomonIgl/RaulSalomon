@@ -1,9 +1,8 @@
 ---
-import Badge from "@/components/ui/Badge.astro";
+import BlogGrid from "@/components/BlogGrid.astro";
+import Sidebar from "@/components/Sidebar.astro";
 import BlogLayout from "@/layouts/BlogLayout.astro";
 import { getCollection } from "astro:content";
-
-const lstPosts = await getCollection("posts");
 
 const featuredPosts = await getCollection("posts", ({ data }) => {
   return data.featured === true;
@@ -12,29 +11,14 @@ const featuredPosts = await getCollection("posts", ({ data }) => {
 const posts = await getCollection("posts", ({ data }) => {
   return data.featured !== true;
 });
-
-const categories = [...new Set(lstPosts.flatMap((post) => post.data.tags))];
-
-// Ordenar los posts por fecha (pub_date) de más reciente a más antiguo
-const sortedPosts = lstPosts.sort(
-  (a, b) =>
-    // 'Date' no se puede restar directamente sin acceder a sus valores de tiempo en milisegundos.
-    // Para solucionar esto, se convierte las fechas a milisegundos utilizando .getTime(),
-    // lo que devolverá un número con el que se puede realizar la operación de resta correctamente.
-    new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
-);
-
-const recentPosts = sortedPosts.slice(0, 3);
 ---
 
 <BlogLayout
   title="Raul Salomon - Mi blog"
   description="Descubre contenido creativo, consejos y proyectos innovadores en nuestro blog"
 >
-  <div
-    class="container mx-auto px-4 py-8 flex flex-col md:flex-row-reverse gap-4"
-  >
-    <div class="w-full md:pr-8">
+  <div class="container mx-auto py-8 flex flex-col md:flex-row-reverse gap-4">
+    <div class="w-full">
       <div class="mb-12">
         <div
           class:list={featuredPosts.length < 2
@@ -66,7 +50,7 @@ const recentPosts = sortedPosts.slice(0, 3);
                       href={`/blog/${id}`}
                       class="text-indigo-600 font-semibold hover:underline"
                     >
-                      Read More
+                      Leer más
                     </a>
                   </div>
                 </div>
@@ -76,79 +60,9 @@ const recentPosts = sortedPosts.slice(0, 3);
         </div>
       </div>
       <!-- BlogGrid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-        {
-          posts.map((post) => {
-            const { id, data } = post;
-            const { title, description, image, pubDate, tags } = data;
-
-            return (
-              <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105">
-                <img
-                  src={image || "images/placeholder.webp"}
-                  alt={title}
-                  transition:name={`img-${id}`}
-                  width={400}
-                  height={200}
-                  class="w-full h-48 object-cover"
-                />
-                <div class="p-6">
-                  <div class="flex flex-wrap gap-2">
-                    {tags?.map((tag) => {
-                      return <Badge text={tag} />;
-                    })}
-                  </div>
-                  <h2 class="text-xl font-bold mt-2 mb-2">{title}</h2>
-                  <p class="text-gray-600 mb-4">{description}</p>
-                  <a
-                    href={`/blog/${id}`}
-                    class="text-indigo-600 font-semibold hover:underline"
-                  >
-                    Read More
-                  </a>
-                </div>
-              </div>
-            );
-          })
-        }
-      </div>
+      <BlogGrid source={posts} />
     </div>
     <!-- Sidebar -->
-    <aside class={`md:w-1/4 mt-8 md:mt-0 rounded-lg shadow-md p-6`}>
-      <div class="mb-8">
-        <h3 class="text-xl font-bold mb-4">Categories</h3>
-        <ul>
-          {
-            categories.map((category) => (
-              <li class="mb-2">
-                <a
-                  href={`/blog/${category}`}
-                  class="text-indigo-600 hover:underline"
-                >
-                  {category}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-      <div class="mb-8">
-        <h3 class="text-xl font-bold mb-4">Recent Posts</h3>
-        <ul>
-          {
-            recentPosts.map((post) => (
-              <li class="mb-2">
-                <a
-                  href={`/blog/${post.id}`}
-                  class="text-gray-700 hover:text-indigo-600 transition-colors"
-                >
-                  {post.data.title}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </aside>
+    <Sidebar class="mt-8 md:mt-0" />
   </div>
 </BlogLayout>

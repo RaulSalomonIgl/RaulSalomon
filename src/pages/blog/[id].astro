@@ -1,9 +1,12 @@
 ---
 import { getCollection, render } from "astro:content";
 
-import Sidebar from "@/components/Sidebar.astro";
-import Comments from "@/components/Comments.astro";
+import "@/styles/post.css";
+
 import BlogLayout from "@/layouts/BlogLayout.astro";
+import AsideNavigation from "@/components/AsideNavigation.astro";
+import Comments from "@/components/Comments.astro";
+import ButtonBackTop from "@/components/react-components/ButtonBackTop.jsx";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -15,44 +18,43 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { id, data } = post;
-const {
-  title,
-  description,
-  image,
-  pubDate,
-  authorType,
-  author,
-  externalAuthor,
-  source,
-  tags,
-  draft,
-} = data;
+const { title, image, pubDate, author, externalAuthor, source } = data;
 
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 ---
 
 <BlogLayout title=`Raul Salomon - ${title}` description={title}>
-  <div class="container mx-auto px-4 py-8">
-    <div class="flex flex-col md:flex-row">
-      <article class="md:w-2/3 md:pr-8">
-        <img
-          src={image || "/images/placeholder.svg"}
-          alt={title}
-          transition:name={`img-${id}`}
-          width={800}
-          height={400}
-          class="w-full h-64 object-cover rounded-lg mb-6"
-        />
-        <h1 class="text-3xl font-bold mb-4">{title}</h1>
-        <div class="text-gray-600 mb-4">
-          <span>{pubDate}</span> • <span>{author}</span>
-        </div>
-        <div class="prose max-w-none mb-12">
-          <Content />
-        </div>
-        <Comments />
-      </article>
-      <Sidebar class="md:w-1/3 mt-8 md:mt-0" />
+  <div class="container mx-auto px-4 flex flex-col md:flex-row gap-4">
+    <div class="w-full md:pr-8">
+      <div class="mb-12">
+        <article class="md:px-20">
+          <img
+            src={image || "/images/placeholder.svg"}
+            alt={title}
+            transition:name={`img-${id}`}
+            width={800}
+            height={400}
+            class="w-full h-64 object-cover rounded-lg mb-6"
+          />
+          <h1 class="text-3xl font-bold mb-4">{title}</h1>
+          <div class="text-gray-600 mb-4">
+            <span>{pubDate.toDateString()}</span> • <span>{author}</span>
+          </div>
+          <div class="prose max-w-none mb-12">
+            <Content />
+          </div>
+          <Comments />
+        </article>
+      </div>
     </div>
+    <div class="top-0 right-0 bottom-0 hidden w-64 xl:block">
+      <AsideNavigation
+        className="fixed bg-white h-full right-0 hidden w-64 xl:block"
+        listClassName="px-5 pt-4 pb-14"
+        dataSource={headings}
+      />
+    </div>
+
+    <ButtonBackTop client:load />
   </div>
 </BlogLayout>

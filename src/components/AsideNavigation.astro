@@ -1,0 +1,37 @@
+---
+import type { MarkdownHeading } from "astro";
+
+interface TocProps {
+  className?: string;
+  listClassName?: string;
+  dataSource?: MarkdownHeading[];
+}
+
+const { dataSource = [], className, listClassName } = Astro.props;
+---
+
+{
+  !!dataSource.length && (
+    <div class={className}>
+      <nav class="h-full w-full overflow-scroll">
+        <ul class={`text-slate8 ${listClassName}`}>
+          {dataSource
+            .filter((item: any) => item.depth > 1)
+            .map((item: any) => {
+              return (
+                <li class="text-sm">
+                  <a
+                    class="inline-block cursor-pointer py-1 transition-colors text-neutral-800 hover:text-indigo-600"
+                    style={{ marginLeft: `${(item.depth - 2) * 8}px` }}
+                    href={`#${item.slug}`}
+                  >
+                    {item.text}
+                  </a>
+                </li>
+              );
+            })}
+        </ul>
+      </nav>
+    </div>
+  )
+}
