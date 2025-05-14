@@ -4,32 +4,34 @@
       "company": "Facultad de Contaduría Pública y Administración",
       "period": "2023 - Actual",
       "responsibilities": [
-        "Desarrollo de aplicaciones.",
-        "Mantenimiento a sistemas desarrollados.",
-        "Soporte técnico de sistemas.",
-        "Administración de Base de Datos."
+        "Desarrollé una aplicación web para la tramitación de titulaciones, optimizando el proceso de preinscripción y generando los informes necesarios para el departamento.",
+        "Participé en el desarrollo de un sistema interno de control de inventario, donde mi mayor contribución fue el módulo de gestión de productos.",
+        "Brindé soporte a los sistemas existentes, incluyendo APIs y sistemas desarrollados con React.",
+        "Desarrollé y administré bases de datos relacionales.",
+        "Implementé sistemas de control de versiones con Git y Astro para la creación de sitios web estáticos, lo que redujo los tiempos de respuesta de desarrollo y soporte, así como la tasa de errores."
       ],
-      "tools": ["JavaScript","C#","MSSQL",".NET", "Git"]
+      "tools": ["JavaScript", "C#", "MSSQL", ".NET", "Git", "Astro", "HTML", "CSS3", "TailwindCSS"]
+    },
+    {
+      "title": "Ingeniero de software",
+      "company": "AppCenter FACPYA UANL",
+      "period": "2020 - 2023",
+      "responsibilities": [
+        "Se desarrollaron sistemas internos para FACPYA, incluyendo un sistema de gestión de proyectos que mejoró la eficiencia operativa de la escuela en un 30 %.",
+        "Se desarrolló e implementó un sistema de información estadística para la escuela, facilitando la toma de decisiones basadas en datos para la administración.",
+        "Se desarrolló un sistema de gestión para el espacio reservado 'FACPYA Coworking', específicamente para asistir en la administración de los miembros."
+      ],
+      "tools": ["C#", "MSSQL", ".NET", "Git", "Figma", "Python", "Postman", "Django", "Postgres SQL", "Linux"]
     },
     {
       "title": "Full Stack Developer",
       "company": "Freelancer",
-      "period": "2020 - 2023",
+      "period": " 2020 - 2021",
       "responsibilities": [
-        "Encargado de la coordinación de equipos de desarrollo",
-        "Diseñador y desarrollador de interfaces de usuario web adaptables",
-        "Participación en el desarrollo de aplicaciones adaptadas a ECommerce"
+        "Coordiné y gestioné equipos de desarrollo para garantizar un flujo de trabajo eficiente y la entrega de proyectos.",
+        "Diseñé y desarrollé interfaces de usuario (UI) web adaptables, centrándome en la experiencia del usuario y la compatibilidad entre dispositivos.",
+        "Participé en el desarrollo de aplicaciones de comercio electrónico personalizadas, adaptando las soluciones a las necesidades específicas del negocio."
       ],
-      "tools": ["C#","MSSQL",".NET","Git", "Figma"]
-    },
-    {
-      "title": "Junior Web Developer",
-      "company": "AppCenter",
-      "period": "2019 - 2021",
-      "responsibilities": [
-        "Desarrollo de aplicaciones",
-        "Encargado de la coordinación de equipos de desarrollo"
-      ],
-      "tools": ["C#",".NET","Git"]
+      "tools": ["C#", ".NET", "Git", "Angular", "MSSQL", "Figma", "Postman", "Angular Material"]
     }
   ]
